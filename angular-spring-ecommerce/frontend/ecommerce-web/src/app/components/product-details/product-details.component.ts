@@ -1,7 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Route } from '@angular/router';
-import { map } from 'rxjs';
 import { Product } from 'src/app/common/product';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -15,14 +13,15 @@ export class ProductDetailsComponent implements OnInit{
   product!: Product;
 
   constructor(private productService:ProductService,
-    private route:ActivatedRoute){}
+              private route:ActivatedRoute){}
 
   ngOnInit(): void {
-    this.getProductDetails();
+    this.route.paramMap.subscribe(() =>{
+      this.getProductDetails();
+    })
   }
 
   getProductDetails(){
-
     const theProductId: number = +this.route.snapshot.paramMap.get('id')!;
 
     this.productService.getProduct(theProductId).subscribe(
