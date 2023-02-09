@@ -13,12 +13,14 @@ export class ProductListComponent implements OnInit {
   products: Product[] = [];
   currentCategoryId: number = 1;
   currentCategoryName: string = "";
+  previousCategoryId: number = 1;
   searchMode: boolean = false;
 
-  //pagination
+  //properties pagination
   thePageNumber: number = 1;
   thePageSize: number = 10;
   theTotalElements: number = 0;
+  
 
 
   constructor(private productService: ProductService,
@@ -55,6 +57,15 @@ export class ProductListComponent implements OnInit {
       this.currentCategoryId = 1;
       this.currentCategoryName = 'Books';
     }
+
+    if(this.previousCategoryId != this.currentCategoryId){
+        this.thePageNumber = 1;
+    }
+
+    this.previousCategoryId = this.currentCategoryId;
+
+    console.log(`currentCategoryId=${this.currentCategoryId}, thePageNumber=${this.thePageNumber}`);
+    
     //now get the products for the given category id
     this.productService.getProductListPaginate(this.thePageNumber - 1, this.thePageSize,
       this.currentCategoryId)
@@ -64,10 +75,6 @@ export class ProductListComponent implements OnInit {
         this.thePageSize = data.page.size;
         this.theTotalElements = data.page.totalElements;
       });
-  }
-
-  private processResult() {
-
   }
 
   handleSearchProducts() {
