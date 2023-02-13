@@ -5,7 +5,7 @@ import { CartItem } from '../common/cart-item';
 @Injectable({
   providedIn: 'root'
 })
-export class CartServiceService {
+export class CartService {
 
   cartItens: CartItem[] = []
 
@@ -49,7 +49,7 @@ export class CartServiceService {
     let totalValueItens: number = 0;
     let totalQuantityItens: number = 0;
 
-    for(let tempCartItem of this.cartItens){
+    for (let tempCartItem of this.cartItens) {
       totalValueItens += tempCartItem.unitPrice * tempCartItem.quantity;
       totalQuantityItens += tempCartItem.quantity;
     }
