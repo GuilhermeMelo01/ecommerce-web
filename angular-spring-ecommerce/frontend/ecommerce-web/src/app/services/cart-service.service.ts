@@ -42,7 +42,21 @@ export class CartServiceService {
     }
 
     //compute cart quantity and cart total
-    // this.computeCartTotals();
+    this.computeCartTotals();
+  }
+
+  computeCartTotals() {
+    let totalValueItens: number = 0;
+    let totalQuantityItens: number = 0;
+
+    for(let tempCartItem of this.cartItens){
+      totalValueItens += tempCartItem.unitPrice * tempCartItem.quantity;
+      totalQuantityItens += tempCartItem.quantity;
+    }
+
+    //publish the new values... all subscribes will receive the new data
+    this.totalPrice.next(totalValueItens);
+    this.totalQuantity.next(totalQuantityItens);
   }
 
 }
