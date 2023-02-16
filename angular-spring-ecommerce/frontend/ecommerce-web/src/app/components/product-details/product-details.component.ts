@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Route } from '@angular/router';
+import { CartItem } from 'src/app/common/cart-item';
 import { Product } from 'src/app/common/product';
+import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -8,20 +10,21 @@ import { ProductService } from 'src/app/services/product.service';
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.css']
 })
-export class ProductDetailsComponent implements OnInit{
-  
+export class ProductDetailsComponent implements OnInit {
+
   product!: Product;
 
-  constructor(private productService:ProductService,
-              private route:ActivatedRoute){}
+  constructor(private productService: ProductService,
+    private cartService: CartService,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(() =>{
+    this.route.paramMap.subscribe(() => {
       this.getProductDetails();
     })
   }
 
-  getProductDetails(){
+  getProductDetails() {
     const theProductId: number = +this.route.snapshot.paramMap.get('id')!;
 
     this.productService.getProduct(theProductId).subscribe(
@@ -29,6 +32,12 @@ export class ProductDetailsComponent implements OnInit{
         this.product = data;
       }
     )
+  }
+
+  addToCart() {
+    console.log(`Adding to Cart: ${this.product.name}, ${this.product.unitPrice}`);
+    const theCartItem = new CartItem(this.product);
+    this.cartService.addToCart(theCartItem);
   }
 
 }
