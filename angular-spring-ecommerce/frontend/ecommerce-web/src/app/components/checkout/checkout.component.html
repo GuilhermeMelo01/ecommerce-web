@@ -147,12 +147,15 @@
                         <div class="col-md-2"><label>Card Type</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
-                                <input formControlName="cardType" type="text">
+                                <select formControlName="cardType">
+                                    <option>Visa</option>
+                                    <option>Mastercard</option>
+                                </select>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-2"><label>Name Card</label></div>
+                        <div class="col-md-2"><label>Name on Card</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
                                 <input formControlName="nameCard" type="text">
@@ -176,7 +179,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-2"><label>Exp Month</label></div>
+                        <div class="col-md-2"><label>Expiration Month</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
                                 <select formControlName="expirationMonth">
@@ -186,7 +189,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-2"><label>Exp Year</label></div>
+                        <div class="col-md-2"><label>Expiration Year</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
                                 <select formControlName="expirationYear">
@@ -195,6 +198,15 @@
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <!--Order details-->
+                <div class="form-area">
+                    <h3>Review Your Order</h3>
+
+                    <p>Total Quantinty: {{ totalQuantity }}</p>
+                    <p>Shipping: FREE </p>
+                    <p>Total Price: {{ totalPrice }}</p>
                 </div>
 
                 <!--Purchase button-->
