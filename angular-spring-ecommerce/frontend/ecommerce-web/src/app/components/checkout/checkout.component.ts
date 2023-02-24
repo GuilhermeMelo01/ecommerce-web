@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-checkout',
@@ -38,13 +39,13 @@ export class CheckoutComponent implements OnInit {
         nameCard: [''],
         cardNumber: [''],
         securityCode: [''],
-        expMonth: [''],
-        expYear: ['']
+        expirationMonth: [''],
+        expirationYear: ['']
       })
     });
   }
 
-  onSubmit(){
+  onSubmit() {
     console.log("Handling the submit button");
     console.log(this.checkoutFormGroup.get('customer')?.value);
   }
