@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { CartService } from 'src/app/services/cart.service';
 
 @Component({
@@ -48,6 +49,14 @@ export class CheckoutComponent implements OnInit {
   onSubmit() {
     console.log("Handling the submit button");
     console.log(this.checkoutFormGroup.get('customer')?.value);
+  }
+
+  copyShippingAddressToBillingAddress(event: any) {  
+    if(event.target.checked){
+      this.checkoutFormGroup.controls.billingAddress.setValue(this.checkoutFormGroup.controls.shippingAddress.value);
+    }else{
+      this.checkoutFormGroup.controls.billingAddress.reset();
+    }
   }
 
 }
