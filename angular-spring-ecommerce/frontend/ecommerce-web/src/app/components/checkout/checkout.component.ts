@@ -54,20 +54,20 @@ export class CheckoutComponent implements OnInit {
     });
 
     // populate credit card months
-    const startMonth: number = new Date().getMonth() + 1; 
+    const startMonth: number = new Date().getMonth() + 1;
     console.log(`Start Month: ${startMonth}`);
-    
+
     this.luv2ShopFormService.getCreditCardMonths(startMonth).subscribe(
       data => {
-        console.log(`Retrieved credit card months: ${JSON.stringify(data)}`); 
-        this.creditCardMonths = data; 
+        console.log(`Retrieved credit card months: ${JSON.stringify(data)}`);
+        this.creditCardMonths = data;
       }
     );
-    
+
     // populate credit card years
     this.luv2ShopFormService.getCreditCardYear().subscribe(
       data => {
-        console.log(`Retrieved credit card years: ${JSON.stringify(data)}`); 
+        console.log(`Retrieved credit card years: ${JSON.stringify(data)}`);
         this.creditCardYears = data;
       }
     )
@@ -79,12 +79,35 @@ export class CheckoutComponent implements OnInit {
     console.log(this.checkoutFormGroup.get('customer')?.value);
   }
 
-  copyShippingAddressToBillingAddress(event: any) {  
-    if(event.target.checked){
+  copyShippingAddressToBillingAddress(event: any) {
+    if (event.target.checked) {
       this.checkoutFormGroup.controls.billingAddress.setValue(this.checkoutFormGroup.controls.shippingAddress.value);
-    }else{
+    } else {
       this.checkoutFormGroup.controls.billingAddress.reset();
     }
   }
 
+  handleMonthsAndYears() {
+    const creditCardFormGroup = this.checkoutFormGroup.get('creditCard');
+
+    const currentYear: number = new Date().getFullYear();
+    const selectYear: number = Number(creditCardFormGroup?.value.expirationYear);
+
+    // If current year equals the select year, then start with the current month
+
+    let startMonth: number;
+
+    if (currentYear === selectYear) {
+      startMonth = new Date().getMonth() + 1;
+    } else {
+      startMonth = 1;
+    }
+
+    this.luv2ShopFormService.getCreditCardMonths(startMonth).subscribe(
+      data => {
+        console.log("Retrieved credit card months: "+ JSON.stringify(data));
+        this.creditCardMonths = data;
+      }
+    )
+  }
 }
