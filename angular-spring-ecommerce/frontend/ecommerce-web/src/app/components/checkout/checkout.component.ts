@@ -1,3 +1,4 @@
+import { Country } from './../../common/country';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -18,6 +19,8 @@ export class CheckoutComponent implements OnInit {
 
   creditCardYears: number[] = [];
   creditCardMonths: number[] = [];
+
+  countries: Country[] = [];
 
   constructor(private formBuilder: FormBuilder,
     private luv2ShopFormService: Luv2ShopFormService) { }
@@ -72,6 +75,12 @@ export class CheckoutComponent implements OnInit {
       }
     )
 
+    //populate countries
+    this.luv2ShopFormService.getCountries().subscribe(
+      data => {
+        console.log("Countries retrieved: " + JSON.stringify(data));
+        this.countries = data;
+      });
   }
 
   onSubmit() {
@@ -105,7 +114,7 @@ export class CheckoutComponent implements OnInit {
 
     this.luv2ShopFormService.getCreditCardMonths(startMonth).subscribe(
       data => {
-        console.log("Retrieved credit card months: "+ JSON.stringify(data));
+        console.log("Retrieved credit card months: " + JSON.stringify(data));
         this.creditCardMonths = data;
       }
     )
