@@ -136,9 +136,15 @@ export class CheckoutComponent implements OnInit {
     this.luv2ShopFormService.getStates(countryCode).subscribe(
       data => {
         if(formGroupName === 'shippingAddress'){
-            
+            this.shippingAddressStates = data;
+        } else{
+          this.billingAddressStates = data;
         }
+
+
+        // Select first item by default
+        formGroup!.get('state')?.setValue(data[0])
       }
-    )
+    );
   }
 }
