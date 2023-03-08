@@ -1,7 +1,7 @@
 import { State } from './../../common/state';
 import { Country } from './../../common/country';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { CartService } from 'src/app/services/cart.service';
 import { Luv2ShopFormService } from 'src/app/services/luv2-shop-form.service';
@@ -32,9 +32,9 @@ export class CheckoutComponent implements OnInit {
   ngOnInit(): void {
     this.checkoutFormGroup = this.formBuilder.group({
       customer: this.formBuilder.group({
-        firstName: [''],
-        lastName: [''],
-        email: ['']
+        firstName: new FormControl('', [Validators.required, Validators.minLength(2)]),
+        lastName: new FormControl('', [Validators.required, Validators.minLength(2)]),
+        email: new FormControl('', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')])
       }),
       shippingAddress: this.formBuilder.group({
         country: [''],
@@ -91,11 +91,11 @@ export class CheckoutComponent implements OnInit {
     console.log("Handling the submit button");
     console.log(this.checkoutFormGroup.get('customer')?.value);
 
-    console.log("The email address is "+ this.checkoutFormGroup.get('customer')?.value.email)
+    console.log("The email address is " + this.checkoutFormGroup.get('customer')?.value.email)
 
-    console.log("The shipping address country is "+ this.checkoutFormGroup.get('shippingAddress')?.value.country.name);
+    console.log("The shipping address country is " + this.checkoutFormGroup.get('shippingAddress')?.value.country.name);
 
-    console.log("The shipping address state is "+ this.checkoutFormGroup.get('shippingAddress')?.value.state.name);
+    console.log("The shipping address state is " + this.checkoutFormGroup.get('shippingAddress')?.value.state.name);
   }
 
   copyShippingAddressToBillingAddress(event: any) {
@@ -136,7 +136,7 @@ export class CheckoutComponent implements OnInit {
     );
   }
 
-  getStates(formGroupName: string){
+  getStates(formGroupName: string) {
     const formGroup = this.checkoutFormGroup.get(formGroupName);
 
     const countryCode = formGroup?.value.country.code;
@@ -147,9 +147,9 @@ export class CheckoutComponent implements OnInit {
 
     this.luv2ShopFormService.getStates(countryCode).subscribe(
       data => {
-        if(formGroupName === 'shippingAddress'){
-            this.shippingAddressStates = data;
-        } else{
+        if (formGroupName === 'shippingAddress') {
+          this.shippingAddressStates = data;
+        } else {
           this.billingAddressStates = data;
         }
 
