@@ -31,11 +31,13 @@ export class CheckoutComponent implements OnInit {
   ngOnInit(): void {
     this.checkoutFormGroup = this.formBuilder.group({
       customer: this.formBuilder.group({
-        firstName: new FormControl('',
+          firstName: new FormControl('',
           [Validators.required, Validators.minLength(2), Luv2ShopValidators.notOnlyWhitespace]),
-        lastName: new FormControl('',
+
+          lastName: new FormControl('',
           [Validators.required, Validators.minLength(2), Luv2ShopValidators.notOnlyWhitespace]),
-        email: new FormControl('', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')])
+
+          email: new FormControl('', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')])
       }),
       shippingAddress: this.formBuilder.group({
         country: [''],
