@@ -31,20 +31,23 @@ export class CheckoutComponent implements OnInit {
   ngOnInit(): void {
     this.checkoutFormGroup = this.formBuilder.group({
       customer: this.formBuilder.group({
-          firstName: new FormControl('',
+        firstName: new FormControl('',
           [Validators.required, Validators.minLength(2), Luv2ShopValidators.notOnlyWhitespace]),
 
-          lastName: new FormControl('',
+        lastName: new FormControl('',
           [Validators.required, Validators.minLength(2), Luv2ShopValidators.notOnlyWhitespace]),
 
-          email: new FormControl('', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')])
+        email: new FormControl('', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')])
       }),
       shippingAddress: this.formBuilder.group({
-        country: [''],
-        street: [''],
-        city: [''],
-        state: [''],
-        zipCode: ['']
+        country: new FormControl('', [Validators.required]),
+        street: new FormControl('', [Validators.required, Validators.minLength(2),
+        Luv2ShopValidators.notOnlyWhitespace]),
+        city: new FormControl('', [Validators.required, Validators.minLength(2),
+        Luv2ShopValidators.notOnlyWhitespace]),
+        state: new FormControl('',[Validators.required]),
+        zipCode: new FormControl('', [Validators.required, Validators.minLength(2),
+        Luv2ShopValidators.notOnlyWhitespace])
       }),
       billingAddress: this.formBuilder.group({
         country: [''],
@@ -91,10 +94,14 @@ export class CheckoutComponent implements OnInit {
   }
 
   get firstName() { return this.checkoutFormGroup.get('customer.firstName'); }
-
   get lastName() { return this.checkoutFormGroup.get('customer.lastName'); }
-
   get email() { return this.checkoutFormGroup.get('customer.email'); }
+
+  get shippingAddressStreet() { return this.checkoutFormGroup.get('shippingAddress.street');}
+  get shippingAddressCity() { return this.checkoutFormGroup.get('shippingAddress.city');}
+  get shippingAddressZipCode() { return this.checkoutFormGroup.get('shippingAddress.zipCode');}
+  get shippingAddressCountry() { return this.checkoutFormGroup.get('shippingAddress.country');}
+  get shippingAddressState() { return this.checkoutFormGroup.get('shippingAddress.state');}
 
   onSubmit() {
     console.log("Handling the submit button");
