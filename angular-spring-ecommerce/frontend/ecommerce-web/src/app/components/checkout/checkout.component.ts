@@ -1,3 +1,4 @@
+import { CartService } from './../../services/cart.service';
 import { State } from './../../common/state';
 import { Country } from './../../common/country';
 import { Component, OnInit } from '@angular/core';
@@ -26,7 +27,8 @@ export class CheckoutComponent implements OnInit {
   billingAddressStates: State[] = [];
 
   constructor(private formBuilder: FormBuilder,
-    private luv2ShopFormService: Luv2ShopFormService) { }
+    private luv2ShopFormService: Luv2ShopFormService,
+    private cartService: CartService) { }
 
   ngOnInit(): void {
     this.checkoutFormGroup = this.formBuilder.group({
