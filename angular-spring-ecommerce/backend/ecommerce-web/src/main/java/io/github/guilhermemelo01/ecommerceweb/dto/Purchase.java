@@ -6,7 +6,6 @@ import io.github.guilhermemelo01.ecommerceweb.entinty.Order;
 import io.github.guilhermemelo01.ecommerceweb.entinty.OrderItem;
 import lombok.Data;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Data

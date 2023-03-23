@@ -35,7 +35,7 @@ public class Customer {
                 orders = new HashSet<>();
             }
             orders.add(order);
-            order.setCustomer(this);
+            order.setCustomer(this);    
         }
     }
 }
