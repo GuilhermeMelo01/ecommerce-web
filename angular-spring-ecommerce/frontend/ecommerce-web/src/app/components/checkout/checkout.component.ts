@@ -1,3 +1,4 @@
+import { CheckoutService } from './../../services/checkout.service';
 import { CartService } from './../../services/cart.service';
 import { State } from './../../common/state';
 import { Country } from './../../common/country';
@@ -5,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Luv2ShopFormService } from 'src/app/services/luv2-shop-form.service';
 import { Luv2ShopValidators } from 'src/app/validators/luv2-shop-validators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
@@ -13,7 +15,7 @@ import { Luv2ShopValidators } from 'src/app/validators/luv2-shop-validators';
 })
 export class CheckoutComponent implements OnInit {
 
-  checkoutFormGroup!: FormGroup;
+  checkoutFormGroup: FormGroup;
 
   totalPrice: number = 0;
   totalQuantity: number = 0;
@@ -28,10 +30,11 @@ export class CheckoutComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
     private luv2ShopFormService: Luv2ShopFormService,
-    private cartService: CartService) { }
+    private cartService: CartService,
+    private checkoutService: CheckoutService,
+    private router: Router) { }
 
   ngOnInit(): void {
-
     this.reviewCartDetails();
 
     this.checkoutFormGroup = this.formBuilder.group({
@@ -139,13 +142,26 @@ export class CheckoutComponent implements OnInit {
 
     if (this.checkoutFormGroup.invalid) {
       this.checkoutFormGroup.markAllAsTouched();
+      return;
     }
 
-    console.log(this.checkoutFormGroup.get('customer')?.value);
-    console.log("The email address is " + this.checkoutFormGroup.get('customer')?.value.email)
+    // set up order
 
-    console.log("The shipping address country is " + this.checkoutFormGroup.get('shippingAddress')?.value.country.name);
-    console.log("The shipping address state is " + this.checkoutFormGroup.get('shippingAddress')?.value.state.name);
+    //get cart items
+
+    //create orderItems from cartItems
+
+    //set up purchase
+
+    //populate purchase - customer
+
+    //populate purchase - shipping address
+
+    //populate purchase - billing address
+
+    //populate purchase - order and OrderItems
+
+    // call REST API via the CheckoutService
   }
 
   copyShippingAddressToBillingAddress(event: any) {
