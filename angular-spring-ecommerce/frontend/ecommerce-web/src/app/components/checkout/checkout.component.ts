@@ -1,3 +1,7 @@
+import { Purchase } from './../../common/purchase';
+import { CartItem } from './../../common/cart-item';
+import { OrderItem } from './../../common/order-item';
+import { Order } from './../../common/order';
 import { CheckoutService } from './../../services/checkout.service';
 import { CartService } from './../../services/cart.service';
 import { State } from './../../common/state';
@@ -71,7 +75,7 @@ export class CheckoutComponent implements OnInit {
         cardType: new FormControl('', [Validators.required]),
         nameCard: new FormControl('', [Validators.required, Validators.minLength(2), Luv2ShopValidators.notOnlyWhitespace]),
         cardNumber: new FormControl('', [Validators.required, Validators.pattern('[0-9]{16}'), Luv2ShopValidators.notOnlyWhitespace]),
-        securityCode: new FormControl('', [Validators.required, Validators.pattern('[0-9]{3}'),Luv2ShopValidators.notOnlyWhitespace]),
+        securityCode: new FormControl('', [Validators.required, Validators.pattern('[0-9]{3}'), Luv2ShopValidators.notOnlyWhitespace]),
         expirationMonth: [''],
         expirationYear: ['']
       })
@@ -146,18 +150,44 @@ export class CheckoutComponent implements OnInit {
     }
 
     // set up order
+    let order = new Order();
+    order.totalPrice = this.totalPrice;
+    order.totalQuantity = this.totalQuantity;
 
     //get cart items
+    const cartItems = this.cartService.cartItems;
 
     //create orderItems from cartItems
+    // - short way
+    let orderItems: OrderItem[] = cartItems.map(tempCartItem => new OrderItem(tempCartItem));
+
+    // - long way
+    /*
+    let orderItems: OrderItem[] = [];
+    for (let i = 0; i < cartItems.length; i++) {
+      orderItems[i] = new OrderItem(cartItems[i])
+    }
+    */
 
     //set up purchase
+    let purchase = new Purchase();
 
     //populate purchase - customer
+    purchase.customer = this.checkoutFormGroup.controls['customer'].value;
 
     //populate purchase - shipping address
+    purchase.shippingAdrress = this.checkoutFormGroup.controls['shippingAddress'].value;
+    const shippingState: State = JSON.parse(JSON.stringify(purchase.shippingAdrress.state));
+    const shippingCountry: Country = JSON.parse(JSON.stringify(purchase.shippingAdrress.country));
+    purchase.shippingAdrress.state = shippingState.name;
+    purchase.shippingAdrress.country = shippingCountry.name;
 
     //populate purchase - billing address
+    purchase.billingAddress = this.checkoutFormGroup.controls['billingAddress'].value;
+    const billingState: State = JSON.parse(JSON.stringify(purchase.billingAddress.state));
+    const billingCountry: Country = JSON.parse(JSON.stringify(purchase.billingAddress.country));
+    purchase.billingAddress.state = billingState.name;
+    purchase.billingAddress.country = billingCountry.name;
 
     //populate purchase - order and OrderItems
 
