@@ -38,8 +38,8 @@ public class CheckoutServiceImpl implements CheckoutService {
         orderItems.forEach(order::add);
 
         //populate order with billingAddress and shippingAddress
-        order.setBillingAddress(purchase.getBillingAddress());
         order.setShippingAddress(purchase.getShippingAddress());
+        order.setBillingAddress(purchase.getBillingAddress());
 
         //populate customer with order
         Customer customer = purchase.getCustomer();

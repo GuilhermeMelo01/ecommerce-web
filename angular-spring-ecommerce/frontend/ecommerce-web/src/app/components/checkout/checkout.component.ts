@@ -176,11 +176,11 @@ export class CheckoutComponent implements OnInit {
     purchase.customer = this.checkoutFormGroup.controls['customer'].value;
 
     //populate purchase - shipping address
-    purchase.shippingAdrress = this.checkoutFormGroup.controls['shippingAddress'].value;
-    const shippingState: State = JSON.parse(JSON.stringify(purchase.shippingAdrress.state));
-    const shippingCountry: Country = JSON.parse(JSON.stringify(purchase.shippingAdrress.country));
-    purchase.shippingAdrress.state = shippingState.name;
-    purchase.shippingAdrress.country = shippingCountry.name;
+    purchase.shippingAddress = this.checkoutFormGroup.controls['shippingAddress'].value;
+    const shippingState: State = JSON.parse(JSON.stringify(purchase.shippingAddress.state));
+    const shippingCountry: Country = JSON.parse(JSON.stringify(purchase.shippingAddress.country));
+    purchase.shippingAddress.state = shippingState.name;
+    purchase.shippingAddress.country = shippingCountry.name;
 
     //populate purchase - billing address
     purchase.billingAddress = this.checkoutFormGroup.controls['billingAddress'].value;
@@ -262,8 +262,8 @@ export class CheckoutComponent implements OnInit {
   getStates(formGroupName: string) {
     const formGroup = this.checkoutFormGroup.get(formGroupName);
 
-    const countryCode = formGroup?.value.country.code;
-    const countryName = formGroup?.value.country.name;
+    const countryCode = formGroup!.value.country.code;
+    const countryName = formGroup!.value.country.name;
 
     console.log(`${formGroupName} Country code: ${countryCode}`);
     console.log(`${formGroupName} Country name: ${countryName}`);

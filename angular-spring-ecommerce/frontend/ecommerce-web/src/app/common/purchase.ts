@@ -7,7 +7,8 @@ export class Purchase {
 
   customer: Customer;
   billingAddress: Address;
-  shippingAdrress: Address;
+  shippingAddress: Address;
   order: Order;
   orderItems: OrderItem[]
 }
+  

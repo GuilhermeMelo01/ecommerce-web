@@ -17,10 +17,8 @@ public class Address {
     private Long id;
     @Column(name = "city")
     private String city;
-
     @Column(name = "country")
     private String country;
-
     @Column(name = "state")
     private String state;
     @Column(name = "street")
