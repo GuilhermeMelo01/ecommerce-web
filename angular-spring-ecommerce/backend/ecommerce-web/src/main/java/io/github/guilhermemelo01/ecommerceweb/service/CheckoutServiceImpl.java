@@ -3,7 +3,6 @@ package io.github.guilhermemelo01.ecommerceweb.service;
 import io.github.guilhermemelo01.ecommerceweb.dao.CustomerRepository;
 import io.github.guilhermemelo01.ecommerceweb.dto.Purchase;
 import io.github.guilhermemelo01.ecommerceweb.dto.PurchaseResponse;
-import io.github.guilhermemelo01.ecommerceweb.entinty.Address;
 import io.github.guilhermemelo01.ecommerceweb.entinty.Customer;
 import io.github.guilhermemelo01.ecommerceweb.entinty.Order;
 import io.github.guilhermemelo01.ecommerceweb.entinty.OrderItem;

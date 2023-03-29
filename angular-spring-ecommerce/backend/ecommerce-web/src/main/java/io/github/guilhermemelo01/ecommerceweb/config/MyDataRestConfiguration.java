@@ -38,7 +38,6 @@ public class MyDataRestConfiguration implements RepositoryRestConfigurer {
 
         exposeIds(config);
     }
-
     private static void disableHttpMethods(Class theClass, RepositoryRestConfiguration config, HttpMethod[] theUnsupportedActions) {
         config.getExposureConfiguration()
                 .forDomainType(theClass)
