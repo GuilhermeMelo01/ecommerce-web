@@ -1,7 +1,7 @@
 <div class="login-status-header">
 
   <div *ngIf="isAuthenticated && userFullName" class="login-status-user-info">
-    welcome back {{ userFullName }} <!--Sem o sinal de exclamação-->
+    welcome back {{ userFullName }}! <!--Sem o sinal de exclamação-->
   </div>
 
   <button *ngIf="!isAuthenticated" routerLink="/login" class="security-btn">
