@@ -22,7 +22,7 @@ export class LoginStatusComponent implements OnInit {
           this.isAuthenticated = result.isAuthenticated!;
           this.getUserDetails();
         }
-      )
+      );
   }
 
   getUserDetails() {
@@ -42,6 +42,4 @@ export class LoginStatusComponent implements OnInit {
     //Terminates the session with Okta and removes current tokens.
     this.oktaAuth.signOut();
   }
-
-
 }
