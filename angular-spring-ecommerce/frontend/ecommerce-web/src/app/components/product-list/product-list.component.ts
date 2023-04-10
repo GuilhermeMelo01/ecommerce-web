@@ -8,7 +8,7 @@ import { CartService } from 'src/app/services/cart.service';
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list-grid.component.html',
-  styleUrls: ['./product-list.component.css']
+  styleUrls: ['./product-list.component.css'],
 })
 export class ProductListComponent implements OnInit {
 
@@ -112,7 +112,7 @@ export class ProductListComponent implements OnInit {
 
     // TODO ... do the real work
     const theCartItem = new CartItem(theProduct);
-    
+
     this.cartService.addToCart(theCartItem);
   }
 }
